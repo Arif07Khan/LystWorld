@@ -6,7 +6,6 @@ import SignUp from './component/main/SignUp';
 import Login from './component/main/Login';
 import Home from './component/main/Home';
 import ResetPassword from './component/main/ResetPassword';
-import ContactUs from './component/main/ContactUs';
 import Admin from './component/admin';
 import DashBoard from './component/admin/DashBoard';
 import ManageUser from './component/admin/ManageUser';
@@ -38,7 +37,6 @@ function App() {
         <Route path="signup" element={<SignUp/>} ></Route>
         <Route path="login" element={<Login/>} ></Route>
         <Route path="reset" element={<ResetPassword/>}></Route>
-        <Route path="contactus" element={<ContactUs/>}></Route>
         <Route path="platformdetails" element={<PlatformDetails/>}></Route>
         <Route path="viewplatform/:id" element={<ViewPlatform/>}></Route>
         <Route path="listplatform" element={<ListPlatform/>}></Route>

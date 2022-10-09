@@ -41,4 +41,18 @@ router.post('/authenticate',(req,res)=>{
     });
 }  )
 
+router.post('/checkemail',(req,res)=>{
+    const formdata=req.body;
+    Model.findOne({email:formdata.email}).then((result) => {
+        if(result){
+            res.status(200).json(result);
+        }else{
+            res.status(400).json({message:"Invalid Email"})
+        }
+    }).catch((err) => {
+        res.status(500).json(err);
+    });
+}  )
+
+
 module.exports = router;

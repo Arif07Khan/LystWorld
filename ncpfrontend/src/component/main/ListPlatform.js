@@ -5,6 +5,8 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import app_config from "../../config";
 import Reloader from "./Reloader";
+import Slider from "./Slider";
+
 
 
 const ListPlatform = () => {
@@ -14,6 +16,7 @@ const ListPlatform = () => {
   const [search, setSearch] = useState([]);
   const [loading, setLoading] = useState(false);
   const [listLoading, setListLoading] = useState(false)
+ const [nameList, setNameList] = useState([])
   
   
   const getDataFromBackend = (cd) => {
@@ -44,19 +47,19 @@ const ListPlatform = () => {
     }
       getDataFromBackend((data) => {
         const filteredData = data.filter((item) =>
-          item.title.toLowerCase().includes(name.toLowerCase())
-        );
+          item.title.toLowerCase().includes(name.toLowerCase()));
         console.log(filteredData);
         setPlatformList(filteredData);
+        setNameList(data.filter((item) => item.title))
+        setLoading(false);
         if (filteredData.length > 0) {
           setPlatformList(filteredData);
           setLoading(false);
         }  else{
-          toast.error("No data found");
+          toast.error("No platform found");
           setLoading(false);
           setPlatformList(search)
           setName("")
-          resetForm()
         }
         setLoading(false);
       });
@@ -64,11 +67,13 @@ const ListPlatform = () => {
   };
 
 
+
+ 
   const displayPlatforms = () => {
     return (
-      <div className="w-fit h-screen">
-        {!listLoading? 
-        <div className="flex justify-center  sticky top-16 ">
+      <div className="h-max p-0 m-0">
+        <Slider></Slider>
+        <div className="flex justify-center  mb-5 mt-5">
             <input
               type="search"
               className="focus:outline-none bg-white w-1/3 py-2 pl-5  placeholder:text-zinc-600  text-lg text-zinc-800  font-serif rounded-full " 
@@ -79,51 +84,55 @@ const ListPlatform = () => {
                 }
                 setName(e.target.value)
               }}
-              placeholder="Search Here"
+              placeholder="Search"
               onKeyDown={e => {
                 if(e.key === "Enter"){
                   searchByName(e)
                 }
               }}
-              />{
+            
+              />
+              <button>
+                <i className="fas fa-search text-2xl text-zinc-800 ml-2" onClick={searchByName}></i>
+              </button>
+              {
                 loading ? <i className="fas fa-sharp fa-solid fa-gear fa-spin h-4 w-4 mt-3 ml-3" ></i>
                 :null
               }
-              </div>:null}
+              </div>
+             
+           
              {!listLoading?
-        <div  className="flex flex-wrap justify-around ">
+              <div className="flex flex-wrap justify-center">
+        <div  className="grid lg:grid-cols-5 gap-5 mx-3">
           {platformList.map(({ _id, title, concise, thumbnail, link }) => (
             <div 
-              className="max-w-sm mt-4 rounded-lg overflow-hidden shadow-lg  shadow-slate-700 bg-gray-50 "
+              className="max-w-md hover:rounded-lg overflow-hidden shadow-xl shadow-slate-200 bg-gray-50  mt-5 hover:scale-105 hover:transition hover:hover:text-emerald-900 hover:shadow-xl hover:shadow-slate-500 hover:cursor-pointer hover:duration-500 hover:ease-in-out hover:bg-purple-100"  
               key={_id}
             >
               <img
-                className="w-fit h-fit rounded-xl p-1"
+                className="w-2/3 h-2/3 rounded-xl  shadow-xl shadow-slate-200 m-1"
                 src={url + "/" + thumbnail}
                 alt="Platform"
               />
               <div className="px-3 py-3">
                 <div className="font-bold text-xl">{title}</div>
-                <p className="text-gray-700 text-base mb-3">{concise}</p>
+                <p className="text-gray-700 text-serif mb-3">{concise}</p>
               </div>
               <div className="flex flex-wrap justify-evenly mb-3 ">
-                <a
-                  href={link}
-                  rel="noreferrer" 
-                  target="_blank"
-                  className="py-1.5 px-4 bg-emerald-500 hover:bg-emerald-400 text-gray-50 rounded-lg shadow-md shadow-gray-500 hover:shadow-none font-semibold"
-                >
-                  <i className="fa fa-thin fa-globe"></i>&nbsp;Visit
+                <a href={link} className="bg-gray-300 px-5 pt-2 rounded-full hover:shadow-md hover:shadow-slate-600 " target="_blank">
+                Visit &nbsp;<i class="fa fa-globe" aria-hidden="true"></i>
                 </a>
                 <Link
                   to={"/main/viewplatform/" + _id}
-                  className="py-1.5 px-4 bg-blue-500 hover:bg-blue-400 rounded-lg text-gray-100 shadow-md shadow-gray-500 hover:shadow-none font-semibold"
+                  className="py-1.5 px-4 mt-1 bg-blue-500 hover:bg-blue-400 rounded-full text-gray-100 hover:shadow-md hover:shadow-gray-500 hove font-semibold"
                 >
                   More Info.
                 </Link>
               </div>
             </div>
           ))}
+        </div>
         </div>:
         <div className="h-screen">
          <Reloader/>
@@ -133,7 +142,10 @@ const ListPlatform = () => {
     );
     }
   ;
-  return( <div  className="container-fluid  p-0 m-0">{displayPlatforms()}</div>)
+  return( <div  className="container-fluid  p-0 m-0">
+    
+    {displayPlatforms()}
+    </div>)
 }
 
 

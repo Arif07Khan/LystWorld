@@ -1,24 +1,38 @@
-import React from 'react'
+import { motion } from 'framer-motion';
+import React, { useState } from 'react'
 import { Formik,ErrorMessage } from 'formik';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import * as Yup from 'yup';
 import app_config from '../../config';
 
+
 const validationSchema = Yup.object({
   name: Yup.string("").matches(/^[aA-zZ\s]+$/, "Name must be in alphabets").required('*Name is required'),
   username: Yup.string().length(10,"Atleast 10 character").matches(  ).required('*UserName is required'),
-  email: Yup.string().email('Email is invalid').required('*Email is required'),
+  email: Yup.string().email('Email is invalid').required('*Email is required').test('email', 'Email already exists', async (value) => {
+    const response = await fetch(app_config.url + "/user/checkemail", {
+      method: "POST",
+      body: JSON.stringify({ email: value }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    return data.status === 200;
+  }),
   password: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
   "Password must contain at least 8 characters, one uppercase, one number and one special case character").required("*Password is required"),
   confirmPassword: Yup.string().oneOf([Yup.ref('password'),null], 'Passwords must match').required("*Password must match")
 });
 
 const SignUp = () => {
-  const url = app_config.api_url;
+  const [loading, setLoading] = useState(false);
+  const url = app_config.url;
   const navigate=useNavigate();
 
  const userSubmit = async(formdata,{resetForm}) => {
+    setLoading(true);
   const response=await fetch(url+'/user/add',{
   method:'POST',
   body:JSON.stringify(formdata),
@@ -30,6 +44,7 @@ if(response.status===200){
     title:"Nice ",
     text:" You are register",
   })
+  navigate('/main/login');
 }else{
   Swal.fire({
     icon:"error",
@@ -37,8 +52,9 @@ if(response.status===200){
     text:"Something went wrong"
   })
 }
-resetForm();
-navigate('/main/login');
+
+setLoading(false);
+
 };
 
   return (
@@ -52,7 +68,7 @@ navigate('/main/login');
         </p>
       </div>
     </div>
-    <div className="flex w-full justify-evenly items-center bg-white">
+    <div className="flex w-full h-full justify-evenly items-center bg-white">
       <Formik initialValues={{
       name:"",
       username:"",
@@ -69,9 +85,9 @@ navigate('/main/login');
         <h1 className="text-gray-800 font-bold text-2xl mb-1">Hey!</h1>
         <p className="text-sm font-normal text-gray-600 mb-5">Sign Up Here</p>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl">
-        <i className="fa fa-thin fa-circle-user">:-</i>
+        <i className="fa fa-thin fa-circle-user text-gray-600"></i>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-4 outline-none border-none"
             type="text"
             name="name"
             value={values.name}
@@ -85,14 +101,14 @@ navigate('/main/login');
         <ErrorMessage name="name" component="div" className="text-red-500" />
         </div>
         <div className="flex items-center border-2 py-2 px-3 rounded-2xl mt-3">
-       <i className="fa fa-thin fa-user">:-</i>
+       <i className="fa fa-thin fa-user text-gray-600"></i>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-4 outline-none border-none"
             type="text"
             name="username"
             value={values.username}
             onChange={handleChange}
-            placeholder="Enter UserName"
+            placeholder="Enter Username"
             onBlur={handleBlur}
             autoComplete="off"
           />
@@ -101,9 +117,9 @@ navigate('/main/login');
         <ErrorMessage name="username" component="div" className="text-red-500" />
         </div>
         <div className="flex items-center border-2 py-2 px-3  rounded-2xl mt-3">
-        <i className="fa-thin fa-at">:-</i>
+        <i className="fa-thin fa-at text-gray-600"></i>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-4 outline-none border-none"
             type="email"
             name="email"
             value={values.email}
@@ -117,43 +133,61 @@ navigate('/main/login');
         <ErrorMessage name="email" component="div" className="text-red-500" />
         </div>
         <div className="flex items-center border-2 py-2 px-3 mt-3 rounded-2xl">
-        <i className="fa fa-thin fa-lock">:-</i>
+        <i className="fa fa-thin fa-lock text-gray-600"></i>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-4 outline-none border-none"
             type="password"
             name="password"
             value={values.password}
             onChange={handleChange}
-            placeholder="Enter PassWord"
+            placeholder="*********"
            onBlur={handleBlur}
             autoComplete="off"
+            
           />
         </div>
         <div className='ml-5'>
         <ErrorMessage name="password" component="div" className="text-red-500" />
         </div>
         <div className="flex items-center border-2 py-2 px-3 mt-3 rounded-2xl">
-        <i className="fa fa-thin fa-lock">:-</i>
+        <i className="fa fa-thin fa-lock text-gray-600"></i>
           <input
-            className="pl-2 outline-none border-none"
+            className="pl-4 outline-none border-none"
             type="password"
             name="confirmPassword"
-            placeholder="Confirm PassWord"
+            placeholder="Confirm Password"
             value={values.confirmPassword}
             onChange={handleChange}
             onBlur={handleBlur}
             autoComplete="off"
+            
           />
         </div>
         <div className='ml-5'>
         <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
         </div>
+        {!loading ? 
+        <motion.div whileTap={{scale:0.8}}>
         <button
           type="submit"
           className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
-        >
+          >
           Sign Up
         </button>
+          </motion.div>:
+          <button
+          type="submit"
+          className="block w-full bg-indigo-600 mt-4 py-2 rounded-2xl text-white font-semibold mb-2"
+          >
+         <i class="fa fa-spinner fa-spin mr-4" aria-hidden="true"></i>
+          Loading...
+        </button>
+          }
+          <div className="flex justify-end mr-3">
+          <p className='text-gray-600 text-sm'>
+          Already Register ? <Link to="/main/login" className='text-md text-blue-700 hover:text-blue-600 cursor-pointer'>Login</Link>
+          </p>
+          </div>
       </form>
         )}
       </Formik>

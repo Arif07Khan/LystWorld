@@ -52,10 +52,13 @@ const uploadFile = (e) => {
   });
 };
 
+ 
+
+
   return (
-    <div className='container  flex flex-col items-center justify-evenly '>
-      <div className="w-50 mt-10 rounded-lg bg-gradient-to-tr from-slate-400 to-teal-200 px-2 shadow-2xl shadow-gray-500">
-        <h1 className='text-center mt-2 text-2xl font-bold' >Add Platform</h1>
+    <div className=' flex justify-center '>
+      <div className="mt-10  w-1/2 rounded-lg bg-gradient-to-tr from-slate-400 to-teal-200 px-2 shadow-2xl shadow-gray-500">
+        <h1 className='text-center mt-2 text-2xl font-bold'>Add Platform</h1>
       <Formik initialValues={{
         title:"",
         describe:"",
@@ -86,7 +89,8 @@ const uploadFile = (e) => {
       </div>
       <div className='flex flex-col' >
         <label className='mt-1 font-semibold' htmlFor="plan">PLAN:-</label>
-        <input className="mb-2 rounded-lg px-2 py-1" type="text" value={values.plan} onChange={handleChange}  id="plan" name='plan' placeholder='Enter Here'/>
+        <input className="mb-2 rounded-lg px-2 py-1" type="text" value={values.plan} onChange={handleChange}   id="plan" name='plan' placeholder='Enter Here'/>
+        <button >Add</button>
       </div>
       <div className='flex flex-col' >
         <label className='mt-1 font-semibold' htmlFor="category">CATEGORY:-</label>      

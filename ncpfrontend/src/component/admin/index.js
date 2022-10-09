@@ -1,13 +1,13 @@
 import React from 'react'
 import { Toaster } from 'react-hot-toast'
 import { Outlet } from 'react-router-dom'
-import Header from './Header'
+import DashBoard from './DashBoard'
 
 const Admin = () => {
   return (
     <div>
       <Toaster/>
-        <Header></Header>
+        <DashBoard/>
         <Outlet></Outlet>
     </div>
   )

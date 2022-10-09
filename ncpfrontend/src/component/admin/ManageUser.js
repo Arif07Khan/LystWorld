@@ -8,7 +8,6 @@ const ManageUser = () => {
     
   const [userArray, setUserArray] = useState([]);
 
-  // const nums =[43,54,5,3,55];
 
   const getDataFromBackend=()=>{
       fetch(url+'/user/showall').then(res=>res.json()).then(data=>{
@@ -35,46 +34,42 @@ const ManageUser = () => {
   const displayUsers = () => { 
 
     
-    return (<table className="table align-middle mb-0 bg-white">
-    <thead className="bg-light">
+    return (
+    <table className="w-screen bg-white">
+    <thead className="">
       <tr>
-        <th>Profile</th>
+        <th className=''>Profile</th>
         <th>Email</th>
-        <th>Password</th>
         <th>Action</th> 
       </tr>
     </thead>
     <tbody>
       {userArray.map(({_id,name,username,email,password,createdAt})=>(
-      <tr key={"_id"}>
-        <td>
-          <div className="d-flex align-items-center">
+      <tr key={"_id"} className="border-b-2 border-gray-300">
+        <td className='p-2'>
+          <div className="flex items-center">
             <img
               src="https://mdbootstrap.com/img/new/avatars/8.jpg"
               alt=""
               style={{ width: 45, height: 45 }}
-              className="rounded-circle"
+              className="rounded-full mx-2"
             />
             <div className="ms-3">
-              <p className="fw-bold mb-1 text-danger">Name: &nbsp;{name}</p>
-              <p className="fw-bold mb-1 text-success">UserName:&nbsp;{username}</p>
-              <p className="text-muted mb-0">ID:&nbsp;{_id}</p>
-              <p className="text-muted mb-0">CreatedAt:&nbsp;{createdAt}</p>
+              <p className="mb-1 text-red-500">Name: &nbsp;{name}</p>
+              <p className="mb-1 text-purple-500">UserName:&nbsp;{username}</p>
+              <p className="mb-0 text-red-900">ID:&nbsp;{_id}</p>
+              <p className="mb-0 text-purple-900">CreatedAt:&nbsp;{createdAt}</p>
             </div>
           </div>
         </td>
         
         <td>
-          <span className="badge badge-success rounded-pill d-inline">
+          <span className="">
             {email}
           </span>
         </td>
-        <td> <span className="badge badge-success rounded-pill d-inline">
-            {password}
-          </span>
-        </td>
         <td>
-          <button type="button" className="btn btn-link btn-sm btn-rounded" onClick={()=>{deleteUser(_id)}}>
+          <button type="button" className="bg-red" onClick={()=>{deleteUser(_id)}}>
            Delete
           </button>
         </td>
@@ -89,9 +84,10 @@ const ManageUser = () => {
     
 
   return (
-    <div className='row'>
+    <div className='container'>
       <h1>Table data</h1>
-        <div className='col-md'>{displayUsers()}</div></div>
+        <div className=''>{displayUsers()}</div>
+        </div>
   )
 }
 

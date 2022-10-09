@@ -3,6 +3,9 @@ import { Formik,ErrorMessage } from "formik";
 import * as yup from "yup";
 import Swal from "sweetalert2";
 import { Link, useNavigate} from "react-router-dom";
+import {motion} from 'framer-motion'
+import app_config from "../../config";
+
 
 
 
@@ -13,7 +16,7 @@ const validationSchema = yup.object({
 
 
 const Login = ({isLogging}) => {
-  const url = "http://localhost:5000";
+  const url = app_config.url;
   const [isLoading, setIsLoading] = useState(false);
   const navigate=useNavigate();
   
@@ -57,7 +60,7 @@ const Login = ({isLogging}) => {
 
 
   return (
-    <div className="h-screen flex flex-row md:flex-col ">
+    <div className="h-screen flex flex-col  md:flex-row ">
       <div className="flex w-full bg-gradient-to-tr from-blue-800 to-purple-700 justify-evenly items-center">
         <div className="flex flex-col ml-1 ">
           <span className='rounded-2xl text-2xl text-white font-bold p-1 w-min bg-gradient-to-r from-purple-800 to-sky-800 italic' >LstyWorld</span>
@@ -67,7 +70,7 @@ const Login = ({isLogging}) => {
           </p>
         </div>
       </div>
-      <div className="flex w-full justify-center items-center bg-white">
+      <div className="flex w-full justify-center items-center bg-white h-full">
         <Formik initialValues={{
           email: "",
           password: "",
@@ -142,35 +145,30 @@ const Login = ({isLogging}) => {
                     type="button"
                     disabled
                   >
-                    <span
-                      className="spinner-border spinner-border-sm"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+                    <i class="fa fa-spinner fa-spin mr-4" aria-hidden="true"></i>
                     Loading...
                   </button>
                 ) : (
-                  <button
-                    className="bg-purple-700 text-white font-bold py-2 px-4 rounded-2xl mt-4 w-full"
+                  <motion.div whileTap={{scale:.8}}>
+                  <button 
+                    className="bg-purple-700 text-white font-bold py-2 px-4 rounded-2xl mt-4 w-full mb-2"
                     type="submit"
                   >
                     Login
                   </button>
+                    </motion.div>
                 )
               }
-              <Link to="/main/reset/" className="text-sm ml-2 hover:text-blue-500 cursor-pointer">
+              <Link to="/main/reset/" className="text-sm ml-2  hover:text-blue-500 cursor-pointer">
                 Forgot Password ?
               </Link>
             </form>
-
           )}
         </Formik>
       </div>
     </div>
-
-
-  );
-};
+  )
+}
 
 
 export default Login;

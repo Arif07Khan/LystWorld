@@ -1,9 +1,15 @@
 import React, { useRef } from "react";
+import "./home.css"
 
 const Home = () => {
   
   return (
-    <div className="h-screen w-screen">
+    <div className="h-max w-screen">
+      <section id="slider">
+        <div>
+
+        </div>
+      </section>
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto">
           <h1 class="sm:text-3xl text-2xl font-medium title-font text-center text-gray-900 mb-20">
