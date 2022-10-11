@@ -4,11 +4,9 @@ import gif from "./photo/VAyR.gif";
 
 const Reloader = () => {
   return (
-        <div className='w-screen h-screen flex flex-col justify-center items-center'>
-            <div className=''>
-            <img src={gif} alt="loading" className='' />
+            <div className='flex justify-center mt-10'>
+            <img src={gif} alt="loading" className='w-20 h-20 ' />
             </div>
-        </div>
   )
 }
 

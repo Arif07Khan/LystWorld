@@ -14,9 +14,8 @@ const ListPlatform = () => {
   const url = app_config.url;
   const [platformList, setPlatformList] = useState([]);
   const [search, setSearch] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [listLoading, setListLoading] = useState(false)
- const [nameList, setNameList] = useState([])
+  const [nameList, setNameList] = useState([])
   
   
   const getDataFromBackend = (cd) => {
@@ -39,29 +38,24 @@ const ListPlatform = () => {
   }, []);
 
   const searchByName = ({resetForm}) => {
-    setLoading(true);
     if(!name){
       getDataFromBackend(() => {});
-      setLoading(false);
+      toast.error("Please enter a platform name");
       return;
     }
       getDataFromBackend((data) => {
         const filteredData = data.filter((item) =>
-          item.title.toLowerCase().includes(name.toLowerCase()));
+        item.title.toLowerCase().includes(name.toLowerCase()));
         console.log(filteredData);
         setPlatformList(filteredData);
         setNameList(data.filter((item) => item.title))
-        setLoading(false);
         if (filteredData.length > 0) {
           setPlatformList(filteredData);
-          setLoading(false);
         }  else{
           toast.error("No platform found");
-          setLoading(false);
           setPlatformList(search)
           setName("")
         }
-        setLoading(false);
       });
       resetForm()
   };
@@ -95,23 +89,17 @@ const ListPlatform = () => {
               <button>
                 <i className="fas fa-search text-2xl text-zinc-800 ml-2" onClick={searchByName}></i>
               </button>
-              {
-                loading ? <i className="fas fa-sharp fa-solid fa-gear fa-spin h-4 w-4 mt-3 ml-3" ></i>
-                :null
-              }
               </div>
-             
-           
              {!listLoading?
-              <div className="flex flex-wrap justify-center">
-        <div  className="grid lg:grid-cols-5 gap-5 mx-3">
+              <div className="flex flex-wrap justify-center mx-14">
+        <div  className="grid lg:grid-cols-4 gap-5">
           {platformList.map(({ _id, title, concise, thumbnail, link }) => (
             <div 
               className="max-w-md hover:rounded-lg overflow-hidden shadow-xl shadow-slate-200 bg-gray-50  mt-5 hover:scale-105 hover:transition hover:hover:text-emerald-900 hover:shadow-xl hover:shadow-slate-500 hover:cursor-pointer hover:duration-500 hover:ease-in-out hover:bg-purple-100"  
               key={_id}
             >
               <img
-                className="w-2/3 h-2/3 rounded-xl  shadow-xl shadow-slate-200 m-1"
+                className="w-fit h-fit rounded-xl  shadow-xl shadow-slate-200 m-1"
                 src={url + "/" + thumbnail}
                 alt="Platform"
               />

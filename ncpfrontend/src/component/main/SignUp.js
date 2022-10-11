@@ -10,7 +10,8 @@ import app_config from '../../config';
 const validationSchema = Yup.object({
   name: Yup.string("").matches(/^[aA-zZ\s]+$/, "Name must be in alphabets").required('*Name is required'),
   username: Yup.string().length(10,"Atleast 10 character").matches(  ).required('*UserName is required'),
-  email: Yup.string().email('Email is invalid').required('*Email is required').test('email', 'Email already exists', async (value) => {
+  email: Yup.string().email('Email is invalid').required('*Email is required')
+  .test('email', 'Email already exists', async (value) => {
     const response = await fetch(app_config.url + "/user/checkemail", {
       method: "POST",
       body: JSON.stringify({ email: value }),
@@ -19,7 +20,11 @@ const validationSchema = Yup.object({
       },
     });
     const data = await response.json();
-    return data.status === 200;
+    if (data.status === 200) {
+      return true;
+    } else {
+      return false;
+    }
   }),
   password: Yup.string().matches(/^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
   "Password must contain at least 8 characters, one uppercase, one number and one special case character").required("*Password is required"),
