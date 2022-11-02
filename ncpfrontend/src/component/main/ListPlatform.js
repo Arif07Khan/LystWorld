@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import app_config from "../../config";
 import Reloader from "./Reloader";
 import Slider from "./Slider";
+import "./listPlatform.css";
 
 
 
@@ -67,10 +68,10 @@ const ListPlatform = () => {
     return (
       <div className="h-max p-0 m-0">
         <Slider></Slider>
-        <div className="flex justify-center  mb-5 mt-5">
+        <div className="flex justify-center mt-10 ml-10">
             <input
               type="search"
-              className="focus:outline-none bg-white w-1/3 py-2 pl-5  placeholder:text-zinc-600  text-lg text-zinc-800  font-serif rounded-full " 
+              className="focus:outline-none bg-white w-[300px] md:w-1/3 py-2 pl-5  placeholder:text-zinc-600  text-lg text-zinc-800  font-serif rounded-full " 
               value={name}
               onChange={e => {
                 if(e.target.value === ""){
@@ -92,30 +93,29 @@ const ListPlatform = () => {
               </div>
              {!listLoading?
               <div className="flex flex-wrap justify-center mx-14">
-        <div  className="grid lg:grid-cols-4 gap-5">
+        <div  className="grid lg:grid-cols-4 gap-10 mb-10">
           {platformList.map(({ _id, title, concise, thumbnail, link }) => (
             <div 
               className="max-w-md hover:rounded-lg overflow-hidden shadow-xl shadow-slate-200 bg-gray-50  mt-5 hover:scale-105 hover:transition hover:hover:text-emerald-900 hover:shadow-xl hover:shadow-slate-500 hover:cursor-pointer hover:duration-500 hover:ease-in-out hover:bg-purple-100"  
               key={_id}
             >
               <img
-                className="w-fit h-fit rounded-xl  shadow-xl shadow-slate-200 m-1"
+                className="w-fit h-[200px] rounded-xl  shadow-xl shadow-slate-200 m-1"
                 src={url + "/" + thumbnail}
                 alt="Platform"
               />
               <div className="px-3 py-3">
-                <div className="font-bold text-xl">{title}</div>
-                <p className="text-gray-700 text-serif mb-3">{concise}</p>
+                <div className="font-bold text-xl overflow-hidden ">{title}</div>
+                <p className="text-gray-700 text-serif mb-3 list_concise">{concise}</p>
               </div>
-              <div className="flex flex-wrap justify-evenly mb-3 ">
-                <a href={link} className="bg-gray-300 px-5 pt-2 rounded-full hover:shadow-md hover:shadow-slate-600 " target="_blank">
-                Visit &nbsp;<i class="fa fa-globe" aria-hidden="true"></i>
+              <div className="flex flex-wrap justify-evenly mb-2">
+                <a href={link} className="bg-gray-300 py-1 px-5 rounded-full hover:shadow-md hover:shadow-slate-600 " target="_blank">
+                <i className="fas fa-globe" aria-hidden="true"></i>
                 </a>
                 <Link
                   to={"/main/viewplatform/" + _id}
-                  className="py-1.5 px-4 mt-1 bg-blue-500 hover:bg-blue-400 rounded-full text-gray-100 hover:shadow-md hover:shadow-gray-500 hove font-semibold"
-                >
-                  More Info.
+                  className="py-1 px-5 mt-1 bg-blue-500 hover:bg-blue-400 rounded-full text-gray-100 hover:shadow-md hover:shadow-gray-500 hove font-semibold">
+                  <i className="fas fa-eye" aria-hidden="true"></i>
                 </Link>
               </div>
             </div>

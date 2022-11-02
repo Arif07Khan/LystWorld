@@ -32,7 +32,7 @@ const UpdatePlatform=()=>{
     getdataformBackEnd(); 
 }, []);
 
-   
+
 
 
   const submitPlatform = async(formdata) => { 
@@ -75,15 +75,17 @@ if(!loading){
    </div>
    <div className='flex flex-col' >
      <label className='mt-1 font-semibold' htmlFor="offer">OFFER:-</label>
-     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.offer} onChange={handleChange} id="offer" name='concise' placeholder='Enter Here'/>
+     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.offer} onChange={handleChange} id="offer" name='offer' placeholder='Enter Here'/>
    </div>
    <div className='flex flex-col' >
      <label className='mt-1 font-semibold' htmlFor="plan">PLAN:-</label>
-     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.plan} onChange={handleChange}  id="plan" name='concise' placeholder='Enter Here'/>
+     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.plan1} onChange={handleChange}  id="plan1" name='plan1' placeholder='Enter Here'/>
+     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.plan2} onChange={handleChange}  id="plan2" name='plan2' placeholder='Enter Here'/>
+     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.plan3} onChange={handleChange}  id="plan3" name='plan3' placeholder='Enter Here'/>
    </div>
    <div className='flex flex-col' >
      <label className='mt-1 font-semibold' htmlFor="category">CATEGORY:-</label>      
-     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.category} onChange={handleChange} id="category" name='concise'  placeholder='Enter Here'/>
+     <input className=" mb-2 rounded-lg px-2 py-1 " type="text" value={values.category} onChange={handleChange} id="category" name='category'  placeholder='Enter Here'/>
    </div> 
    <div className=' flex justify-center items-center mt-2 mb-2'>
    <button type="Submit" className='bg-blue-800 px-5 py-1 rounded-lg text-white hover:bg-blue-500' >Update</button>

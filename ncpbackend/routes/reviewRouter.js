@@ -64,4 +64,16 @@ router.get('/getbyplatform/:platformid',(req,res)=>{
    });
 })
 
+router.get('/getByuserId/:userid',(req,res)=>{
+    Model.find({user:req.params.userid})
+    .populate('platform')
+    .populate('user')
+    .then((result)=>{
+        console.log(result);
+        res.json(result)
+    }).catch((err)=>{
+        console.log(err);
+    })
+})
+
 module.exports=router;

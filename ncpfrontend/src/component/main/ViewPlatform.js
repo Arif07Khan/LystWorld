@@ -94,6 +94,19 @@ const ViewPlatform = () => {
     resetForm();
   };
 
+  const popUpLogin=()=>{
+    Swal.fire({
+        icon:"info",
+        title: "SignIn Required",
+        text: "Please SignIn to Review the Platform",
+      }).then((result)=>{
+        if(result.isConfirmed){
+          window.location.href="/main/login"
+        }
+      }
+      );
+  }
+
   const showDetails = () => {
     if (!loading) {
       return (
@@ -144,12 +157,12 @@ const ViewPlatform = () => {
           <hr></hr>
           {!currentUser ? (
             <div className="mt-2 mb-3 bg-green-800 w-fit rounded-lg">
-              <Link
+              <button
                 className=" px-2 py-1 text-white font-bold font-mono text-xl hover:bg-green-700 hover:rounded-lg hover:shadow-lg hover:shadow-slate-600"
-                to="/main/login" 
+               onClick={popUpLogin()}
                 >
                 Click Here To Login  & Give Rating  Review 
-              </Link>
+              </button>
                 </div>
           ) : null}
 

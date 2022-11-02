@@ -21,10 +21,9 @@ import ManageProfileUser from './component/user/ManageProfileUser';
 import ManageReview from './component/user/ManageReview';
 import ViewPlatform from './component/main/ViewPlatform';
 import NotFound from './component/main/NotFound';
-
-
-
-
+import ContactUs from './component/main/ContactUs';
+import ManageContactUs from './component/admin/ManageContactUs';
+import Authorisor from './component/main/Authorisor';
 
 
 function App() {
@@ -41,6 +40,7 @@ function App() {
         <Route path="viewplatform/:id" element={<ViewPlatform/>}></Route>
         <Route path="listplatform" element={<ListPlatform/>}></Route>
         <Route path="compareplatform" element={<ComparePlatform/>}></Route>
+        <Route path="contactus" element={<ContactUs/>}></Route>
        </Route>
        <Route element={<Admin/>} path="admin">
         <Route path='dashboard'element={<DashBoard/>} />
@@ -49,10 +49,11 @@ function App() {
         <Route path='addplatform'element={<AddPlatform/>} />
         <Route path='manageplatform'element={<ManagePlatform/>} />
         <Route path='updateplatform/:id'element={<UpdatePlatform/>} />
+        <Route path='managecontactus'element={<ManageContactUs/>} />
        </Route>
        <Route element={<User/>} path="user">
-        <Route path="manageprofileuser" element={<ManageProfileUser/>}/>
-        <Route path="managereview" element={<ManageReview/>}/>
+        <Route path="manageprofileuser/:id" element={<Authorisor><ManageProfileUser/></Authorisor>}/>
+        <Route path="managereview/:id" element={<ManageReview/>}/>
        </Route>
       <Route path="*" element={<NotFound/>}/>
       </Routes>

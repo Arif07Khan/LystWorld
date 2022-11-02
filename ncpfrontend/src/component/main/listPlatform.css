@@ -1,0 +1,7 @@
+.list_concise{
+    display: -webkit-box;
+    line-gap-override: normal;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}

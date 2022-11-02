@@ -31,11 +31,9 @@ const ManageUser = () => {
 }, []);
 
 
-  const displayUsers = () => { 
-
-    
+  const displayUsers = () => {  
     return (
-    <table className="w-screen bg-white">
+    <table className="align-middle w-[100%] bg-white">
     <thead className="">
       <tr>
         <th className=''>Profile</th>
@@ -69,8 +67,8 @@ const ManageUser = () => {
           </span>
         </td>
         <td>
-          <button type="button" className="bg-red" onClick={()=>{deleteUser(_id)}}>
-           Delete
+          <button type="button" onClick={()=>{deleteUser(_id)}}>
+           <i className="fas fa-trash-alt text-red-500 text-xl"></i>
           </button>
         </td>
       </tr>
@@ -84,8 +82,7 @@ const ManageUser = () => {
     
 
   return (
-    <div className='container'>
-      <h1>Table data</h1>
+    <div className=''>
         <div className=''>{displayUsers()}</div>
         </div>
   )

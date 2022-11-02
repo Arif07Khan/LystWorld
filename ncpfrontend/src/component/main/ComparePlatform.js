@@ -35,15 +35,19 @@ const ComparePlatform = () => {
       }
       getDataFromBackend((data)=>{
         const filteredData = data.filter((item)=>item.title.toLowerCase().includes(name.toLowerCase()));
-        setFilterList([...filterList, filteredData[0]])
-        if(filterList.includes(name)){
-          toast.error("Already added")
-        }
-        else if(filteredData.length > 0){
-          setFilterList([...filterList, filteredData[0]])
+        if(filteredData.length){
+          if(filterList.find(obj => obj.title === filteredData[0].title)){
+            toast.error("Already added")
+          }
+          else if(!filterList.find(obj => obj.title === filteredData[0].title)) {
+            setFilterList([...filterList, filteredData[0]])
+          }
+          else {
+           toast.error("No platform found");
+          }
         }
         else{
-          toast.error("No platform found");
+          
         }
       })
     }
