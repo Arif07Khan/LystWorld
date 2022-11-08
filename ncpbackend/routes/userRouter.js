@@ -43,6 +43,7 @@ router.post('/authenticate',(req,res)=>{
 
 router.post('/checkemail',(req,res)=>{
     const formdata=req.body;
+    console.log(formdata);
     Model.findOne({email:formdata.email}).then((result) => {
         console.log(result);
         if(result){
