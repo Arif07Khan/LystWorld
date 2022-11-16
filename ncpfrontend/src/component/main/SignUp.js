@@ -27,7 +27,7 @@ const validationSchema = Yup.object({
       console.log('email not found')
       return true;
     }
-    else if(response.status === 404){
+    else if(response.status === 400){
       console.log('email not found')
       return true;
     }

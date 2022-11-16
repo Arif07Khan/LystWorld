@@ -8,13 +8,14 @@ import Reloader from "./Reloader";
 
 
 const ComparePlatform = () => {
-  
+
   const [name, setName] = useState("");
   const url=app_config.url;
   const [platformList, setPlatformList] = useState([]);
   const [filterList, setFilterList] = useState([])
   const [nameList, setNameList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [count, setCount] = useState(0);
   
   const getDataFromBackend=(cb)=>{
     setIsLoading(true)
@@ -28,6 +29,11 @@ const ComparePlatform = () => {
     console.log(filterList);
 
     const searchByName =() => {
+      if(count==3){
+        toast.error("You can only compare 3 platforms")
+        return;
+    }
+      else{
       if(!name){
         getDataFromBackend(() => {});
         toast.error("Please enter a platform name");
@@ -41,16 +47,18 @@ const ComparePlatform = () => {
           }
           else if(!filterList.find(obj => obj.title === filteredData[0].title)) {
             setFilterList([...filterList, filteredData[0]])
+            setCount(count+1);
           }
           else {
            toast.error("No platform found");
           }
         }
         else{
-          
+          toast.error("No platform found"); 
         }
       })
     }
+  }
 
 
     useEffect(() => {
@@ -61,6 +69,8 @@ const ComparePlatform = () => {
         console.log(data.map((item)=>item.title));
       } ) ; 
     }, []);
+
+    console.log(nameList);
     
     const removeAll=(id)=>{
       if(filterList.length === 0){
@@ -120,9 +130,9 @@ const ComparePlatform = () => {
         <button className=" text-red-500 text-md `" onClick={removeAll}><i className="fas fa-thin fa-trash"></i></button>
         </motion.div>
         <datalist id="nameList">
-          {nameList.map((item, index) => (
-            <option  key={index} value={item.title}>{item.title}</option>
-            ))}
+          {nameList.map((item)=>(
+            <option value={item} />
+          ))}
         </datalist>
       </div>
       <div className='flex w-full' >

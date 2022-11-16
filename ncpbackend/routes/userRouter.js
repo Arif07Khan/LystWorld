@@ -1,8 +1,13 @@
 const express=require('express')
 const router=express.Router();
 const Model=require('../model/userModel')
+const bcryt = require('bcryptjs');
+const salt = bcryt.genSaltSync(10);
 
 router.post('/add',(req,res)=>{
+    const formdata=req.body;
+    const hash = bcryt.hashSync(formdata.password,salt);
+    formdata.password = hash;
     new Model(req.body).save().then((result) => {
         console.log(result);
         res.json(result)
@@ -20,6 +25,7 @@ router.delete('/delete/:_id',(req,res)=>{
     });
 })
 
+
 router.get('/showall',(req,res)=>{
      Model.find({}).then((result) => {
         console.log(result);
@@ -30,8 +36,9 @@ router.get('/showall',(req,res)=>{
 }   )
 router.post('/authenticate',(req,res)=>{
     const formdata=req.body;
-    Model.findOne({email:formdata.email,password:formdata.password}).then((result) => {
+    Model.findOne({email:formdata.email}).then((result) => {
         if(result){
+            if(bcryt.compareSync(formdata.password , result.password))
             res.status(200).json(result);
         }else{
             res.status(400).json({message:"Invalid password or Email"})

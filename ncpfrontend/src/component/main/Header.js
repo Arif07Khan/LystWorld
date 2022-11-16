@@ -10,7 +10,7 @@ import "./header.css";
 
 const Header = () => {
 
-  // const [click, setClick] = useState(false);
+
 
   const [currentUser, setCurrentUser] = useState(
     JSON.parse(sessionStorage.getItem("user"))
@@ -79,7 +79,7 @@ const Header = () => {
       <NavLink to="contactus" className="mr-5 hover:text-sky-200" >Contact Us</NavLink>
       </motion.div>
      </nav>
-    {  !currentUser ? 
+    {  !currentUser ? (
     <div className="flex mt-2" >
     <motion.div whileTap={{scale:0.8}} className="bg-gray-100 text-gray-800 mx-2 px-2 py-1 rounded-xl">
       <NavLink to="login" className=" hover:text-sky-700  ">Login</NavLink>
@@ -87,7 +87,7 @@ const Header = () => {
       <motion.div whileTap={{scale:0.8}} className="bg-gray-100 text-gray-800 mx-2 px-2 py-1 rounded-xl">
       <NavLink to="signup" className=" hover:text-sky-700">Sign Up</NavLink>
       </motion.div>
-    </div>
+    </div>) 
    :showProfile()}
   </div>
     </motion.header>
