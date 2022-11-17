@@ -39,7 +39,11 @@ const Login = ({isLogging}) => {
       });
       const data = await response.json();
       sessionStorage.setItem('user', JSON.stringify(data));
-      navigate('/main/listplatform')
+      if(data.IsAdmin===true){
+        navigate('/admin/dashboard');
+      }else{
+      navigate('/main/listplatform');
+      }
     } 
     else if (response.status === 400) {
       Swal.fire({

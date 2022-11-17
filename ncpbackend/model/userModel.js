@@ -6,6 +6,7 @@ const myschema=  new Schema({
     email:String,
     password:String,
     createdAt:Date,
+    IsAdmin:Boolean,
 });
 
 module.exports=model('users',myschema);

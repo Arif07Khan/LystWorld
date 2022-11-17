@@ -42,7 +42,7 @@ function App() {
         <Route path="compareplatform" element={<ComparePlatform/>}></Route>
         <Route path="contactus" element={<ContactUs/>}></Route>
        </Route>
-       <Route element={<Admin/>} path="admin">
+       <Route element={<Authorisor><Admin/></Authorisor>} path="admin">
         <Route path='dashboard'element={<DashBoard/>} />
         <Route path='manageuser'element={<ManageUser/>} />
         <Route path='manageprofile'element={<ManageProfile/>} />
@@ -52,8 +52,8 @@ function App() {
         <Route path='managecontactus'element={<ManageContactUs/>} />
        </Route>
        <Route element={<User/>} path="user">
-        <Route path="manageprofileuser/:id" element={<Authorisor><ManageProfileUser/></Authorisor>}/>
-        <Route path="managereview/:id" element={<ManageReview/>}/>
+        <Route path="manageprofileuser" element={<Authorisor><ManageProfileUser/></Authorisor>}/>
+        <Route path="managereview" element={<Authorisor><ManageReview/></Authorisor>}/>
        </Route>
       <Route path="*" element={<NotFound/>}/>
       </Routes>

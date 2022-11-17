@@ -86,6 +86,7 @@ setLoading(false);
       email:"",
       password:"",
       confirmPassword:"",
+      IsAdmin:false,
       createAt:new Date(),
       }} 
       validationSchema={validationSchema}

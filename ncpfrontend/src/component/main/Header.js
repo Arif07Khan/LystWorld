@@ -40,11 +40,11 @@ const Header = () => {
           </li>
           <li className="sub-item">
             <span class="material-symbols-outlined">rate_review</span>
-            <NavLink to={"/user/managereview/"+currentUser._id}>ManageReview</NavLink>
+            <NavLink to={"/user/managereview"}>ManageReview</NavLink>
           </li>
           <li className="sub-item">
           <span class="material-symbols-outlined">manage_accounts</span>
-            <NavLink to={"/user/manageprofileuser/"+currentUser._id}>Update Profile</NavLink>
+            <NavLink to={"/user/manageprofileuser"}>Update Profile</NavLink>
           </li>
           <li className="sub-item">
           <span class="material-symbols-outlined">logout</span>

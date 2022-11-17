@@ -1,15 +1,18 @@
 import React from 'react'
 import { Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
-import { AccountCircle } from "@mui/icons-material";
+import { AccountCircle, Logout } from "@mui/icons-material";
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import AddIcon from "@mui/icons-material/Add";
 import ChatIcon from '@mui/icons-material/Chat';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Toaster } from 'react-hot-toast';
 
 const Admin = () => {
+
+
   const options = [
     {
       name: "Dashboard",
@@ -40,7 +43,12 @@ const Admin = () => {
       name:"Manage Contact",
       icon: <ChatIcon/>,
       link: "/admin/managecontactus"
-    }
+    },
+    {
+      name:"Logout",
+      icon: <Logout/>,
+      link: "/main/home"
+    },
 
   ];
 

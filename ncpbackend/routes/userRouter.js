@@ -61,7 +61,22 @@ router.post('/checkemail',(req,res)=>{
     }).catch((err) => {
         res.status(500).json(err);
     });
-}  )
+})
+
+router.put('/update/:_id',(req,res)=>{
+    const formdata=req.body;
+    Model.findByIdAndUpdate(req.params._id,formdata).then((result) => {
+        console.log(result);
+        if(result){
+            res.status(200).json(result);
+        }else{
+            res.status(400).json({message:"Invalid Email"})
+        }
+    }).catch((err) => {
+        res.status(500).json(err);
+    }
+    );
+})
 
 
 
